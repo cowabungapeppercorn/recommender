@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container center-align">
+  <h1>Signup</h1>
+  <div class="row">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+  <div class="row">
+    <form class="col-s12">
+      <div class="row">
+        {% for field in form if field.widget.input_type != "hidden" %}
+        {{ form.hidden_tag() }}
+        <div class="input-field col s6">
+          {{ field(class="validate") }}
+          {{ field.label }}
+        </div>
+        {% endfor %}
+      </div>
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
