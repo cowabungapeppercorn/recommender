@@ -51,8 +51,8 @@ def register():
         return (jsonify(msg="User created.", access_token=access_token),
                 201)
 
-    except Exception as e:
-        return jsonify(str(e)), 400
+    except Exception:
+        return jsonify(msg="Username already exists."), 400
 
 
 @app.route('/users/login', methods=["POST"])
