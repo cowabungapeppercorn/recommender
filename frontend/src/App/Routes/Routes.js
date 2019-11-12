@@ -4,7 +4,7 @@ import Home from '../Home/Home';
 import Songs from './Songs/Songs';
 import Albums from './Albums/Albums';
 import Artists from './Artists/Artists';
-import RegisterForm from './RegisterForm/RegisterForm';
+import LoginRegisterForm from './LoginRegisterForm/LoginRegisterForm';
 
 function Routes() {
   return (
@@ -18,7 +18,7 @@ function Routes() {
 
       <Route exact path='/artists' render={props => <Artists {...props} />} />
 
-      <Route exact path='/register' render={props => <RegisterForm {...props} />} />
+      <Route exact path='/register' render={props => <LoginRegisterForm {...props} />} />
 
       <Redirect to='/' />
 
