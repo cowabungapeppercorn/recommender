@@ -6,22 +6,27 @@ class BackendApi {
   static async getAllSongs() {
     let res = await axios.get(`${BASE_URL}/songs`);
     return res.data.songs;
-  }
+  };
 
   static async getAllAlbums() {
     let res = await axios.get(`${BASE_URL}/albums`);
     return res.data.albums;
-  }
+  };
 
   static async getAllArtists() {
     let res = await axios.get(`${BASE_URL}/artists`);
     return res.data.artists;
-  }
+  };
 
   static async register(newUser) {
     let res = await axios.post(`${BASE_URL}/users/register`, newUser);
-    return res.data.user;
-  }
+    return res.data.access_token;
+  };
+
+  static async login(user) {
+    let res = await axios.post(`${BASE_URL}/users/login`, user);
+    return res.data.access_token;
+  };
 }
 
 export default BackendApi;
