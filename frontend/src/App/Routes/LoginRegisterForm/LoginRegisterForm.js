@@ -13,7 +13,7 @@ function RegisterForm(props) {
 
     if (!username || !password) {
       return setErrors(["Must enter a valid username and password."]);
-    }
+    };
 
     const newUser = {
       username,
@@ -33,7 +33,7 @@ function RegisterForm(props) {
 
     if (!username || !password) {
       return setErrors(["Must enter a valid username and password."]);
-    }
+    };
 
     const user = {
       username,
@@ -45,7 +45,7 @@ function RegisterForm(props) {
       props.history.push('/');
     } catch (e) {
       return setErrors([e.response.data.msg]);
-    }
+    };
   };
 
   function changeForm() {
@@ -53,7 +53,7 @@ function RegisterForm(props) {
       setFormType("register");
     } else {
       setFormType("login");
-    }
+    };
   };
 
   const errorAlerts = (
@@ -92,7 +92,7 @@ function RegisterForm(props) {
     <Button variant="info" onClick={changeForm}>
       {formType === "login" ? "Register" : "Login"}
     </Button>
-  )
+  );
 
   return (
     <div>
@@ -101,7 +101,7 @@ function RegisterForm(props) {
       {form}
       {changeFormBtn}
     </div>
-  )
-}
+  );
+};
 
 export default RegisterForm;
