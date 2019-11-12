@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BackendApi from '../../../backendApi';
 import { Form, Button, Alert } from 'react-bootstrap';
 
@@ -8,7 +8,7 @@ function RegisterForm(props) {
   const [formType, setFormType] = useState('login');
   const [errors, setErrors] = useState([]);
 
-  async function handleSubmit(evt) {
+  async function handleRegister(evt) {
     evt.preventDefault();
 
     if (!username || !password) {
@@ -24,9 +24,29 @@ function RegisterForm(props) {
       await BackendApi.register(newUser);
       props.history.push('/');
     } catch (e) {
-      return setErrors(["Username already exists."]);
+      return setErrors([e.response.data.msg]);
     }
-  }
+  };
+
+  async function handleLogin(evt) {
+    evt.preventDefault();
+
+    if (!username || !password) {
+      return setErrors(["Must enter a valid username and password."]);
+    }
+
+    const user = {
+      username,
+      password
+    };
+
+    try {
+      await BackendApi.login(user);
+      props.history.push('/');
+    } catch (e) {
+      return setErrors([e.response.data.msg]);
+    }
+  };
 
   function changeForm() {
     if (formType === "login") {
@@ -34,7 +54,7 @@ function RegisterForm(props) {
     } else {
       setFormType("login");
     }
-  }
+  };
 
   const errorAlerts = (
     <div>
@@ -43,8 +63,8 @@ function RegisterForm(props) {
     </div>
   );
 
-  const registerForm = (
-    <Form onSubmit={handleSubmit}>
+  const form = (
+    <Form onSubmit={formType === "login" ? handleLogin : handleRegister}>
       {/* {(errors.length) && errorAlerts} */}
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
@@ -63,15 +83,13 @@ function RegisterForm(props) {
           onChange={e => setPassword(e.target.value)}
         ></Form.Control>
       </Form.Group>
-      <Button type="submit">Sign Up</Button>
+      <Button type="submit">
+        {formType === "login" ? "Login" : "Sign Up"}
+      </Button>
     </Form>
   );
 
-  const loginForm = (
-    <h1>LOGIN BRO</h1>
-  )
-
-  const submitBtn = (
+  const changeFormBtn = (
     <Button variant="info" onClick={changeForm}>
       {formType === "login" ? "Register" : "Login"}
     </Button>
@@ -79,10 +97,10 @@ function RegisterForm(props) {
 
   return (
     <div>
+      <h1>{formType === "login" ? "Login" : "Register"}</h1>
       {errors.length > 0 && errorAlerts}
-      {formType === "register" && registerForm}
-      {formType === "login" && loginForm}
-      {submitBtn}
+      {form}
+      {changeFormBtn}
     </div>
   )
 }
