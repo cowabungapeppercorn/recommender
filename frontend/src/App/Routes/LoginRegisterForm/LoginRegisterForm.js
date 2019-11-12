@@ -65,7 +65,6 @@ function RegisterForm(props) {
 
   const form = (
     <Form onSubmit={formType === "login" ? handleLogin : handleRegister}>
-      {/* {(errors.length) && errorAlerts} */}
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
