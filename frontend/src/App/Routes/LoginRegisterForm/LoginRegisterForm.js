@@ -8,44 +8,31 @@ function RegisterForm(props) {
   const [formType, setFormType] = useState('login');
   const [errors, setErrors] = useState([]);
 
-  async function handleRegister(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
+    let token = "";
 
     if (!username || !password) {
       return setErrors(["Must enter a valid username and password."]);
     };
 
-    const newUser = {
-      username,
-      password
-    };
-
     try {
-      await BackendApi.register(newUser);
-      props.history.push('/');
+      const user = {
+        username,
+        password
+      };
+
+      if (formType === "register") {
+        token = await BackendApi.register(user);    
+      } else {
+        token = await BackendApi.login(user)
+      }
+        
     } catch (e) {
       return setErrors([e.response.data.msg]);
     }
-  };
-
-  async function handleLogin(evt) {
-    evt.preventDefault();
-
-    if (!username || !password) {
-      return setErrors(["Must enter a valid username and password."]);
-    };
-
-    const user = {
-      username,
-      password
-    };
-
-    try {
-      await BackendApi.login(user);
-      props.history.push('/');
-    } catch (e) {
-      return setErrors([e.response.data.msg]);
-    };
+    localStorage.setItem("token", token);
+    props.history.push('/');
   };
 
   function changeForm() {
@@ -64,7 +51,7 @@ function RegisterForm(props) {
   );
 
   const form = (
-    <Form onSubmit={formType === "login" ? handleLogin : handleRegister}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
