@@ -27,6 +27,11 @@ class BackendApi {
     let res = await axios.post(`${BASE_URL}/users/login`, user);
     return res.data.access_token;
   };
+
+  static async getUser(username) {
+    let res = await axios.post(`${BASE_URL}/users/${username}`);
+    return res.data.user;
+  }
 }
 
 export default BackendApi;
