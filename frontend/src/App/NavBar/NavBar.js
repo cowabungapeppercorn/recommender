@@ -22,7 +22,7 @@ function NavBar() {
           {'artists'}
         </NavLink>
         <NavLink to="/register" className="mx-3">
-          {'sign up'}
+          {'login'}
         </NavLink>
       </Nav>
     </Navbar>
