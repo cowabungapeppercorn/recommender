@@ -1,8 +1,6 @@
 from flask import Flask, render_template, redirect, jsonify, request
 from flask_cors import CORS
-from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token, get_jwt_identity
-)
+from flask_jwt_extended import JWTManager, create_access_token
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Song, Album, Artist, User
 from forms import AddSongForm, AddArtistForm, AddAlbumForm
@@ -68,12 +66,21 @@ def login():
             return jsonify({"msg": "Missing password parameter"}), 400
 
         if User.authenticate(username, password):
-            access_token = create_access_token(identity=username)
+            access_token = create_access_token(username=username)
             return jsonify(msg="Login successful.", access_token=access_token), 200
         else:
             return jsonify(msg="Incorrect username/password."), 400
     except Exception as e:
         return jsonify(str(e)), 400
+
+
+@app.route('/users/<username>')
+def get_user(username):
+    try:
+        user = User.get_by_username(username)
+        return jsonify(user), 200
+    except Exception:
+        return jsonify(msg="Could not get user by username."), 400
 
 ##############################################################################
 # SONG ROUTES
