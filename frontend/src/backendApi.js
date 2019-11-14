@@ -29,8 +29,8 @@ class BackendApi {
   };
 
   static async getUser(username) {
-    let res = await axios.post(`${BASE_URL}/users/${username}`);
-    return res.data.user;
+    let res = await axios.get(`${BASE_URL}/users/${username}`);
+    if (res.data) return res.data.user;
   }
 }
 
