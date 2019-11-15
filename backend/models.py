@@ -76,12 +76,12 @@ class User(db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "password": self.password
         }
 
     @classmethod
     def get_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
+        return user
 
     @classmethod
     def register(cls, username, password):
