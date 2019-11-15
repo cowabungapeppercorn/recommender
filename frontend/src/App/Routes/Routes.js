@@ -6,7 +6,7 @@ import Albums from './Albums/Albums';
 import Artists from './Artists/Artists';
 import LoginRegisterForm from './LoginRegisterForm/LoginRegisterForm';
 
-function Routes() {
+function Routes(props) {
   return (
     <Switch>
 
@@ -18,7 +18,9 @@ function Routes() {
 
       <Route exact path='/artists' render={props => <Artists {...props} />} />
 
-      <Route exact path='/register' render={props => <LoginRegisterForm {...props} />} />
+      <Route exact path='/register' render={props => 
+        <LoginRegisterForm {...props} getCurrentUser={() => props.getCurrentUser} />} 
+      />
 
       <Redirect to='/' />
 

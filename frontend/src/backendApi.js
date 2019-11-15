@@ -30,7 +30,7 @@ class BackendApi {
 
   static async getUser(username) {
     let res = await axios.get(`${BASE_URL}/users/${username}`);
-    if (res.data) return res.data.user;
+    return res.data;
   }
 }
 

@@ -14,9 +14,9 @@ function App() {
   async function getCurrentUser() {
     const token = localStorage.getItem("token");
     try {
-      let username = decode(token);
-      let res = await BackendApi.getUser(username);
-      setCurrentUser(res);
+      let { identity } = decode(token);
+      let res = await BackendApi.getUser(identity.username);
+      setCurrentUser(res.username);
     } catch (e) {
       setCurrentUser(null);
     }
@@ -28,14 +28,14 @@ function App() {
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className="App">
       <UserContext.Provider value={currentUser}>
         <NavBar />
-        <h1>{currentUser.username}</h1>
-        <Routes />
+        <h1>{currentUser}</h1>
+        <Routes getCurrentUser={() => getCurrentUser()}/>
       </UserContext.Provider>
     </div>
   );

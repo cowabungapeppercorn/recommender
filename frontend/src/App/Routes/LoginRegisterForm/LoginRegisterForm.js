@@ -32,6 +32,7 @@ function RegisterForm(props) {
       return setErrors([e.response.data.msg]);
     }
     localStorage.setItem("token", token);
+    props.getCurrentUser();
     props.history.push('/');
   };
 
