@@ -30,10 +30,15 @@ function App() {
     }
   }, [currentUser]);
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+  }
+
   return (
     <div className="App">
       <UserContext.Provider value={currentUser}>
-        <NavBar />
+        <NavBar handleLogout={handleLogout}/>
         <h1>{currentUser}</h1>
         <Routes getCurrentUser={() => getCurrentUser()}/>
       </UserContext.Provider>
