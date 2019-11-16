@@ -76,7 +76,7 @@ function RegisterForm(props) {
   );
 
   const changeFormBtn = (
-    <Button variant="info" onClick={changeForm}>
+    <Button className={"my-3"}variant="info" onClick={changeForm}>
       {formType === "login" ? "Register" : "Login"}
     </Button>
   );
