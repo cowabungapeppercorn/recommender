@@ -22,12 +22,11 @@ function RegisterForm(props) {
         password
       };
 
-      if (formType === "register") {
-        token = await BackendApi.register(user);    
-      } else {
-        token = await BackendApi.login(user)
-      }
-        
+      formType === "register" ?
+        token = await BackendApi.register(user)
+        :
+        token = await BackendApi.login(user);
+
     } catch (e) {
       return setErrors([e.response.data.msg]);
     }

@@ -28,7 +28,7 @@ function App() {
     } catch (e) {
       console.log(e);
     }
-  }, [currentUser]);
+  });
 
   function handleLogout() {
     localStorage.removeItem("token");
