@@ -66,8 +66,7 @@ def login():
             return jsonify({"msg": "Missing password parameter"}), 400
 
         if User.authenticate(username, password):
-            user = User.query.filter_by(username=username).first()
-            access_token = create_access_token(identity=user.serialize())
+            access_token = create_access_token(identity=username)
             return jsonify(msg="Login successful.", access_token=access_token), 200
         else:
             return jsonify(msg="Incorrect username/password."), 400
