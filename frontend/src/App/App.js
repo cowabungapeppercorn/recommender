@@ -36,7 +36,7 @@ function App() {
     setCurrentUser(null);
   };
 
-  const context = {
+  const userContext = {
     currentUser,
     getCurrentUser,
     handleLogout
@@ -47,7 +47,7 @@ function App() {
   return (
     !isLoading && (
     <div className="App">
-      <UserContext.Provider value={context}>
+      <UserContext.Provider value={userContext}>
         <NavBar />
         <Routes />
       </UserContext.Provider>

@@ -28,12 +28,12 @@ function Albums() {
 
   return (
     <div className="container">
-      {albums.length > 0 && (
+      <h2>All Albums</h2>
+      {albums.length > 0 ? 
         albumList
-      )}
-      {(albums.length <= 0) && (
+      :
         <h1>No albums sucker</h1>
-      )}
+      }
     </div>
   );
 }

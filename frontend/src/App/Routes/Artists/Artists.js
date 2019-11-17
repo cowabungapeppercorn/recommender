@@ -28,12 +28,12 @@ function Artists() {
 
   return (
     <div className="container">
-      {artists.length > 0 && (
+      <h2>All Artists</h2>
+      {artists.length > 0 ?
         artistList
-      )}
-      {(artists.length <= 0) && (
+      :
         <h1>No albums sucker</h1>
-      )}
+      }
     </div>
   );
 }

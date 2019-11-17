@@ -28,12 +28,12 @@ function Songs() {
 
   return (
     <div className="container">
-      {songs.length > 0 && (
+      <h2>All Songs</h2>
+      {songs.length > 0 ?
         songList
-      )}
-      {songs.length <= 0 && (
+      :
         <h1>No songs sucker</h1>
-      )}
+      }
     </div>
   );
 }
