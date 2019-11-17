@@ -15,8 +15,8 @@ function App() {
   async function getCurrentUser() {
     const token = localStorage.getItem("token");
     try {
-      let { identity } = decode(token);
-      let res = await BackendApi.getUser(identity);
+      const { identity } = decode(token);
+      const res = await BackendApi.getUser(identity);
       setCurrentUser(res.username);
     } catch (e) {
       setCurrentUser(null);
@@ -36,14 +36,20 @@ function App() {
     setCurrentUser(null);
   };
 
+  const context = {
+    currentUser,
+    getCurrentUser,
+    handleLogout
+  }
+
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
     !isLoading && (
     <div className="App">
-      <UserContext.Provider value={currentUser}>
-        <NavBar handleLogout={handleLogout}/>
-        <Routes getCurrentUser={() => getCurrentUser()}/>
+      <UserContext.Provider value={context}>
+        <NavBar />
+        <Routes />
       </UserContext.Provider>
     </div>
     )
