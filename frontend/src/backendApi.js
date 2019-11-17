@@ -8,13 +8,13 @@ class BackendApi {
     return res.data.songs;
   };
 
-  static async getAllAlbums() {
-    let res = await axios.get(`${BASE_URL}/albums`);
+  static async getAllAlbums(headers) {
+    let res = await axios.get(`${BASE_URL}/albums`, headers);
     return res.data.albums;
   };
 
-  static async getAllArtists() {
-    let res = await axios.get(`${BASE_URL}/artists`);
+  static async getAllArtists(headers) {
+    let res = await axios.get(`${BASE_URL}/artists`, headers);
     return res.data.artists;
   };
 

@@ -5,9 +5,11 @@ function Albums() {
   const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const authHeader = { 'headers': { 'Authorization': 'Bearer ' + token } };
     async function _getAlbums() {
       try {
-        let res = await BackendApi.getAllAlbums();
+        let res = await BackendApi.getAllAlbums(authHeader);
         setAlbums(res);
       } catch (err) {
         console.log(err);

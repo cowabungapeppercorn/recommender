@@ -5,9 +5,11 @@ function Artists() {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const authHeader = { 'headers': { 'Authorization': 'Bearer ' + token } };
     async function _getArtists() {
       try {
-        let res = await BackendApi.getAllArtists();
+        let res = await BackendApi.getAllArtists(authHeader);
         setArtists(res);
       } catch (err) {
         console.log(err);
