@@ -128,6 +128,7 @@ def add_song():
 
 
 @app.route('/albums')
+@jwt_required
 def show_albums():
 
     albums = Album.query.order_by(Album.title).all()
@@ -163,6 +164,7 @@ def new_album():
 
 
 @app.route('/artists')
+@jwt_required
 def show_artists():
 
     artists = Artist.query.order_by(Artist.name).all()
