@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, jsonify, request
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager, create_access_token
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Song, Album, Artist, User
 from forms import AddSongForm, AddArtistForm, AddAlbumForm
@@ -79,7 +79,6 @@ def login():
 def get_user(username):
     try:
         user = User.get_by_username(username).serialize()
-        print("### USER ###", user)
         return jsonify(user), 200
     except Exception as e:
         print(e)
@@ -90,6 +89,7 @@ def get_user(username):
 
 
 @app.route('/songs')
+@jwt_required
 def show_songs():
     songs = Song.query.order_by(Song.artist_id).all()
     serialized = [s.serialize() for s in songs]
