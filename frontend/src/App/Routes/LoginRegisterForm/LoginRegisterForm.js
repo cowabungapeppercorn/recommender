@@ -30,8 +30,9 @@ function RegisterForm(props) {
     } catch (e) {
       return setErrors([e.response.data.msg]);
     }
+
     localStorage.setItem("token", token);
-    props.getCurrentUser();
+    await props.getCurrentUser();
     props.history.push('/');
   };
 
