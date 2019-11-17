@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import BackendApi from '../../../backendApi';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { UserContext } from '../../../userContext';
 
 function RegisterForm(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [formType, setFormType] = useState('login');
   const [errors, setErrors] = useState([]);
+  const { getCurrentUser } = useContext(UserContext);
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -32,7 +34,7 @@ function RegisterForm(props) {
     }
 
     localStorage.setItem("token", token);
-    await props.getCurrentUser();
+    getCurrentUser();
     props.history.push('/');
   };
 

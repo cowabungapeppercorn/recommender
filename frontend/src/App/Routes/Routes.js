@@ -18,8 +18,8 @@ function Routes(props) {
 
       <Route exact path='/artists' render={props => <Artists {...props} />} />
 
-      <Route exact path='/register' render={props => 
-        <LoginRegisterForm {...props} getCurrentUser={() => props.getCurrentUser} />} 
+      <Route exact path='/auth' render={props => 
+        <LoginRegisterForm {...props} />} 
       />
 
       <Redirect to='/' />
