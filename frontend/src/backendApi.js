@@ -3,8 +3,8 @@ import axios from 'axios';
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:5000';
 
 class BackendApi {
-  static async getAllSongs() {
-    let res = await axios.get(`${BASE_URL}/songs`);
+  static async getAllSongs(headers) {
+    let res = await axios.get(`${BASE_URL}/songs`, headers);
     return res.data.songs;
   };
 

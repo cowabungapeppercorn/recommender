@@ -5,9 +5,11 @@ function Songs() {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const authHeader = { 'headers': { 'Authorization': 'Bearer ' + token } };
     async function _getSongs() {
       try {
-        let res = await BackendApi.getAllSongs();
+        let res = await BackendApi.getAllSongs(authHeader);
         setSongs(res);
       } catch (err) {
         console.log(err);
