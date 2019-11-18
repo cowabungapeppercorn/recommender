@@ -174,13 +174,32 @@ def show_albums():
 # ARTIST ROUTES
 
 
-@app.route('/artists')
+@app.route('/artists', methods=["GET", "POST"])
 @jwt_required
 def show_artists():
+    if request.method == "GET":
+        artists = Artist.query.order_by(Artist.name).all()
+        serialized = [a.serialize() for a in artists]
+        return jsonify(artists=serialized)
+    else:
+        data = request.get_json()
 
-    artists = Artist.query.order_by(Artist.name).all()
-    serialized = [a.serialize() for a in artists]
-    return jsonify(artists=serialized)
+        if not data['name']:
+            return jsonify({"msg": "Missing name parameter"}), 400
+
+        name = data['name']
+        logo_url = data['logoUrl']
+
+        try:
+            new_artist = Artist(name=name, logo_url=logo_url)
+
+            db.session.add(new_artist)
+            db.session.commit()
+
+            return redirect('/artists')
+        except Exception as e:
+            print(e)
+            return jsonify(msg="Could not add album to database."), 400
 
 
 @app.route('/artists/add', methods=["GET", "POST"])
