@@ -88,12 +88,39 @@ def get_user(username):
 # SONG ROUTES
 
 
-@app.route('/songs')
+@app.route('/songs', methods=["GET", "POST"])
 @jwt_required
 def show_songs():
-    songs = Song.query.order_by(Song.artist_id).all()
-    serialized = [s.serialize() for s in songs]
-    return jsonify(songs=serialized)
+    if request.method == "GET":
+        songs = Song.query.order_by(Song.artist_id).all()
+        serialized = [s.serialize() for s in songs]
+        return jsonify(songs=serialized)
+    else:
+        data = request.get_json()
+
+        if not data['title']:
+            return jsonify({"msg": "Missing title parameter"}), 400
+        if not data['artist']:
+            return jsonify({"msg": "Missing artist parameter"}), 400
+        if not data['album']:
+            return jsonify({"msg": "Missing album parameter"}), 400
+
+        title = data['title']
+        artist = Artist.get_by_name(data['artist'])
+        album = Album.get_by_title(data['album'])
+
+        artist_id = artist.id
+        album_id = album.id
+        new_song = Song(title=title, artist_id=artist_id, album_id=album_id)
+
+        try:
+            db.session.add(new_song)
+            db.session.commit()
+
+            return redirect('/songs')
+        except Exception as e:
+            print(e)
+            return jsonify(msg="Could not add song to database.")
 
 
 @app.route('/songs/add', methods=["GET", "POST"])
