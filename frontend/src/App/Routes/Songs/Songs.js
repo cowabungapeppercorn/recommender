@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BackendApi from '../../../backendApi';
+import NewSongFrom from '../Songs/NewSongForm/NewSongForm';
 
 function Songs() {
   const [songs, setSongs] = useState([]);
@@ -29,6 +30,7 @@ function Songs() {
   return (
     <div className="container">
       <h2>All Songs</h2>
+      <NewSongFrom />
       {songs.length > 0 ?
         songList
       :
