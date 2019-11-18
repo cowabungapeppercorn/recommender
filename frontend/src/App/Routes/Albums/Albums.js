@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BackendApi from '../../../backendApi';
+import NewAlbumForm from '../Albums/NewAlbumForm/NewAlbumForm';
 
-function Albums() {
+function Albums(props) {
   const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function Albums() {
   return (
     <div className="container">
       <h2>All Albums</h2>
+      <NewAlbumForm {...props} setAlbums={setAlbums} />
       {albums.length > 0 ? 
         albumList
       :
