@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Song, Album, Artist, User
-from forms import AddSongForm, AddArtistForm, AddAlbumForm
+from forms import AddArtistForm, AddAlbumForm
 from config import DATABASE_NAME, SECRET_KEY, JWT_SECRET_KEY
 
 app = Flask(__name__)
@@ -128,33 +128,6 @@ def show_songs():
             print(e)
             return jsonify(msg="Could not add song to database.")
 
-
-@app.route('/songs/add', methods=["GET", "POST"])
-def add_song():
-    form = AddSongForm()
-    form.artist.choices = [(artist.id, artist.name) for artist
-                           in Artist.query.order_by(Artist.name).all()]
-    form.album.choices = [(album.id, album.title) for album
-                          in Album.query.order_by(Album.title).all()]
-
-    if form.validate_on_submit():
-        title = form.title.data
-        artist = form.data['artist']
-        album = form.data['album']
-        new_song = Song(title=title, artist_id=artist, album_id=album)
-
-        db.session.add(new_song)
-        db.session.commit()
-
-        return redirect('/songs')
-
-    else:
-        form.artist.choices = [(artist.id, artist.name) for artist
-                               in Artist.query.order_by(Artist.name).all()]
-        form.album.choices = [(album.id, album.title) for album
-                              in Album.query.order_by(Album.title).all()]
-
-        return render_template('new_song.html', form=form)
 
 ##############################################################################
 # ALBUM ROUTES

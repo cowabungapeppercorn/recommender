@@ -3,12 +3,6 @@ from wtforms import StringField, SelectField, PasswordField
 from wtforms.validators import InputRequired, DataRequired, Email, Length
 
 
-class AddSongForm(FlaskForm):
-    title = StringField("title", validators=[InputRequired()])
-    artist = SelectField("artist", coerce=int)
-    album = SelectField("album", coerce=int)
-
-
 class AddAlbumForm(FlaskForm):
     title = StringField("title", validators=[InputRequired()])
     year = StringField("year")
