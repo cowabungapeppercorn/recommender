@@ -28,6 +28,11 @@ class BackendApi {
     return res.data.artists;
   };
 
+  static async addNewArtist(newArtist, headers) {
+    let res = await axios.post(`${BASE_URL}/artists`, newArtist, headers);
+    return res.data;
+  }
+
   static async register(newUser) {
     let res = await axios.post(`${BASE_URL}/users/register`, newUser);
     return res.data.access_token;

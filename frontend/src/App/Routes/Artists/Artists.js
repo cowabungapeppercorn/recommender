@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BackendApi from '../../../backendApi';
+import NewArtistForm from '../Artists/NewArtistForm/NewArtistForm';
 
-function Artists() {
+function Artists(props) {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function Artists() {
   return (
     <div className="container">
       <h2>All Artists</h2>
+      <NewArtistForm {...props} setArtists={setArtists} />
       {artists.length > 0 ?
         artistList
       :
