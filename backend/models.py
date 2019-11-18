@@ -14,7 +14,7 @@ class Artist(db.Model):
     albums = db.relationship("Album", backref="artist")
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     logo_url = db.Column(db.Text, nullable=True, default=DEFAULT_IMAGE)
 
     def serialize(self):
