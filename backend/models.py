@@ -24,6 +24,11 @@ class Artist(db.Model):
             "logo_url": self.logo_url
         }
 
+    @classmethod
+    def get_by_name(cls, name):
+        artist = Artist.query.filter_by(name=name).first()
+        return artist
+
 
 class Song(db.Model):
     __tablename__ = 'songs'
@@ -63,6 +68,11 @@ class Album(db.Model):
             "year": self.year,
             "artist_id": self.artist_id
         }
+
+    @classmethod
+    def get_by_title(cls, title):
+        album = Album.query.filter_by(title=title).first()
+        return album
 
 
 class User(db.Model):
