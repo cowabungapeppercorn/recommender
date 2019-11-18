@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Song, Album, Artist, User
-from forms import AddArtistForm, AddAlbumForm
+from forms import AddArtistForm
 from config import DATABASE_NAME, SECRET_KEY, JWT_SECRET_KEY
 
 app = Flask(__name__)
@@ -169,29 +169,6 @@ def show_albums():
             print(e)
             return jsonify(msg="Could not add album to database."), 400
 
-
-@app.route('/albums/add', methods=["GET", "POST"])
-def new_album():
-    form = AddAlbumForm()
-    form.artist.choices = [(artist.id, artist.name) for artist
-                           in Artist.query.all()]
-
-    if form.validate_on_submit():
-        title = form.title.data
-        year = form.year.data
-        artist = form.data["artist"]
-        new_album = Album(title=title, year=year, artist_id=artist)
-
-        db.session.add(new_album)
-        db.session.commit()
-
-        return redirect('/albums')
-
-    else:
-        form.artist.choices = [(artist.id, artist.name) for artist
-                               in Artist.query.order_by(Artist.name).all()]
-
-        return render_template('new_album.html', form=form)
 
 ##############################################################################
 # ARTIST ROUTES

@@ -1,12 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, PasswordField
-from wtforms.validators import InputRequired, DataRequired, Email, Length
-
-
-class AddAlbumForm(FlaskForm):
-    title = StringField("title", validators=[InputRequired()])
-    year = StringField("year")
-    artist = SelectField("artist", coerce=int)
+from wtforms import StringField, PasswordField
+from wtforms.validators import DataRequired, Email, Length
 
 
 class AddArtistForm(FlaskForm):
