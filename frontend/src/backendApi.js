@@ -8,6 +8,11 @@ class BackendApi {
     return res.data.songs;
   };
 
+  static async addNewSong(newSong, headers) {
+    let res = await axios.post(`${BASE_URL}/songs`, newSong, headers);
+    return res.data;
+  };
+
   static async getAllAlbums(headers) {
     let res = await axios.get(`${BASE_URL}/albums`, headers);
     return res.data.albums;

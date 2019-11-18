@@ -109,15 +109,21 @@ def show_songs():
         artist = Artist.get_by_name(data['artist'])
         album = Album.get_by_title(data['album'])
 
-        artist_id = artist.id
-        album_id = album.id
-        new_song = Song(title=title, artist_id=artist_id, album_id=album_id)
-
         try:
+            if not artist.id > 0:
+                return jsonify({"msg": "Artist not found."})
+            if not album.id > 0:
+                return jsonify({"msg": "Album not found."})
+
+            artist_id = artist.id
+            album_id = album.id
+            new_song = Song(title=title, artist_id=artist_id,
+                            album_id=album_id)
+
             db.session.add(new_song)
             db.session.commit()
 
-            return redirect('/songs')
+            return jsonify({"msg": "Song added successfully."})
         except Exception as e:
             print(e)
             return jsonify(msg="Could not add song to database.")

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BackendApi from '../../../backendApi';
 import NewSongFrom from '../Songs/NewSongForm/NewSongForm';
 
-function Songs() {
+function Songs(props) {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Songs() {
   return (
     <div className="container">
       <h2>All Songs</h2>
-      <NewSongFrom />
+      <NewSongFrom {...props} setSongs={setSongs}/>
       {songs.length > 0 ?
         songList
       :
