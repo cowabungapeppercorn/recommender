@@ -73,7 +73,7 @@ function NewSongForm(props) {
   );
 
   return (
-    <div className={"container"}>
+    <div>
       {errors.length > 0 && errorAlerts}
       {form}
     </div>

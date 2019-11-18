@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BackendApi from '../../../backendApi';
 import NewArtistForm from '../Artists/NewArtistForm/NewArtistForm';
+import { Row } from 'react-bootstrap';
 
 function Artists(props) {
   const [artists, setArtists] = useState([]);
@@ -30,10 +31,12 @@ function Artists(props) {
   return (
     <div className="container">
       <h2>All Artists</h2>
-      <NewArtistForm {...props} setArtists={setArtists} />
+      <Row className="justify-content-center">
+        <NewArtistForm {...props} setArtists={setArtists} />
+      </Row>
       {artists.length > 0 ?
         artistList
-      :
+        :
         <h1>No albums sucker</h1>
       }
     </div>
