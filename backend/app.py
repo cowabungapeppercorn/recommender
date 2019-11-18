@@ -111,9 +111,9 @@ def show_songs():
 
         try:
             if not artist.id > 0:
-                return jsonify({"msg": "Artist not found."})
+                return jsonify({"msg": "Artist not found."}), 400
             if not album.id > 0:
-                return jsonify({"msg": "Album not found."})
+                return jsonify({"msg": "Album not found."}), 400
 
             artist_id = artist.id
             album_id = album.id
@@ -123,23 +123,51 @@ def show_songs():
             db.session.add(new_song)
             db.session.commit()
 
-            return jsonify({"msg": "Song added successfully."})
+            return redirect('/songs')
         except Exception as e:
             print(e)
-            return jsonify(msg="Could not add song to database.")
+            return jsonify(msg="Could not add song to database."), 400
 
 
 ##############################################################################
 # ALBUM ROUTES
 
 
-@app.route('/albums')
+@app.route('/albums', methods=["GET", "POST"])
 @jwt_required
 def show_albums():
+    if request.method == "GET":
+        albums = Album.query.order_by(Album.title).all()
+        serialized = [a.serialize() for a in albums]
+        return jsonify(albums=serialized)
+    else:
+        data = request.get_json()
 
-    albums = Album.query.order_by(Album.title).all()
-    serialized = [a.serialize() for a in albums]
-    return jsonify(albums=serialized)
+        if not data['title']:
+            return jsonify({"msg": "Missing title parameter"}), 400
+        if not data['year']:
+            return jsonify({"msg": "Missing year parameter"}), 400
+        if not data['artist']:
+            return jsonify({"msg": "Missing artist parameter"}), 400
+
+        title = data['title']
+        year = data['year']
+        artist = Artist.get_by_name(data['artist'])
+
+        try:
+            if not artist.id > 0:
+                return jsonify({"msg": "Artist not found."}), 400
+
+            artist_id = artist.id
+            new_album = Album(title=title, year=year, artist_id=artist_id)
+
+            db.session.add(new_album)
+            db.session.commit()
+
+            return redirect('/albums')
+        except Exception as e:
+            print(e)
+            return jsonify(msg="Could not add album to database."), 400
 
 
 @app.route('/albums/add', methods=["GET", "POST"])
