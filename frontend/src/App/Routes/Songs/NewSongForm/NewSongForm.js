@@ -23,10 +23,11 @@ function NewSongForm(props) {
     };
 
     try {
-      await BackendApi.addNewSong(newSong, authHeader);
+      const { songs } = await BackendApi.addNewSong(newSong, authHeader);
       setTitle("");
       setArtist("");
       setAlbum("");
+      props.setSongs(songs)
     } catch (e) {
       console.log(e);
       return setErrors([e.response.data.msg]);
