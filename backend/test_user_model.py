@@ -77,3 +77,7 @@ class UserModelTestCase(TestCase):
         self.assertEqual(u2.id, 2)
         self.assertIsInstance(u1, User)
         self.assertIsInstance(u2, User)
+
+    def test_authenticate(self):
+        self.assertTrue(User.authenticate("slam", "slam"))
+        self.assertTrue(User.authenticate("cowabunga", "peppercorn"))
