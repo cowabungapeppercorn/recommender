@@ -37,7 +37,7 @@ class SongModelTestCase(TestCase):
 
         album = Album(
             title="bigh",
-            year="2019",
+            year=2019,
             artist_id=artist_id
         )
 
@@ -91,17 +91,23 @@ class SongModelTestCase(TestCase):
         s1 = Song.query.filter_by(title=self.song_1.title).first()
         s2 = Song.query.filter_by(title=self.song_2.title).first()
 
+        db_artist = Artist.query.filter_by(name=self.song_2.artist.name).first()
+        db_album = Album.query.filter_by(title=self.song_2.album.title).first()
+
+        artist_id = db_artist.id
+        album_id = db_album.id
+
         s1_serialized = {
             "title": "Eessennet",
-            "artist_id": 1,
-            "album_id": 1,
+            "artist_id": artist_id,
+            "album_id": album_id,
             "id": 1
         }
 
         s2_serialized = {
             "title": "bigh",
-            "artist_id": 1,
-            "album_id": 1,
+            "artist_id": artist_id,
+            "album_id": album_id,
             "id": 2
         }
 
