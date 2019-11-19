@@ -2,7 +2,7 @@
 
 # to run these tests, enter the following in your terminal:
 #
-# python -m unittest test_albums_model.py
+# python -m unittest test_album_model.py
 
 from unittest import TestCase
 from models import db, Artist, Album
