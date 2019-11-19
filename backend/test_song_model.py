@@ -1,4 +1,4 @@
-'''Songs model tests.'''
+'''Song model tests.'''
 
 # to run these tests, enter the following in your terminal:
 #

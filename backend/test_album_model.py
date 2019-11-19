@@ -1,4 +1,4 @@
-'''Albums model tests.'''
+'''Album model tests.'''
 
 # to run these tests, enter the following in your terminal:
 #
@@ -17,7 +17,7 @@ db.drop_all()
 db.create_all()
 
 
-class ArtistModelTestCase(TestCase):
+class AlbumModelTestCase(TestCase):
 
     def setUp(self):
         Album.query.delete()
