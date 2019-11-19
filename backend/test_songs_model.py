@@ -2,11 +2,10 @@
 
 # to run these tests, enter the following in your terminal:
 #
-# python -m unittest test_user_model.py
+# python -m unittest test_songs_model.py
 
 import os
 from unittest import TestCase
-from sqlalchemy.exc import IntegrityError
 from models import db, Song, Artist, Album
 from config import TEST_DATABASE_NAME
 
