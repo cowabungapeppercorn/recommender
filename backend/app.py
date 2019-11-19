@@ -66,7 +66,8 @@ def login():
 
         if User.authenticate(username, password):
             access_token = create_access_token(identity=username)
-            return jsonify(msg="Login successful.", access_token=access_token), 200
+            return jsonify(msg="Login successful.",
+                           access_token=access_token), 200
         else:
             return jsonify(msg="Incorrect username/password."), 400
     except Exception as e:
