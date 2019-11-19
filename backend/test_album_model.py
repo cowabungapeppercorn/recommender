@@ -8,10 +8,9 @@ import os
 from unittest import TestCase
 from models import db, Artist, Album
 from config import TEST_DATABASE_NAME
-
-os.environ['DATABASE_URL'] = f'postgresql:///{TEST_DATABASE_NAME}'
-
 from app import app
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql:///{TEST_DATABASE_NAME}'
 
 db.drop_all()
 db.create_all()
