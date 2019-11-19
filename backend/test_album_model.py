@@ -58,6 +58,30 @@ class ArtistModelTestCase(TestCase):
     def tearDown(self):
         db.session.rollback()
 
+    def test_serialize(self):
+        a1 = Album.query.filter_by(title=self.album_1.title).first()
+        a2 = Album.query.filter_by(title=self.album_2.title).first()
+
+        db_artist = Artist.query.filter_by(name=self.album_2.artist.name).first()
+        artist_id = db_artist.id
+
+        a1_serialized = {
+            "title": "bigh",
+            "year": "2019",
+            "artist_id": artist_id,
+            "id": 3
+        }
+
+        a2_serialized = {
+            "title": "An Apple a Day Doesn't Fall Far From the Tree",
+            "year": "2019",
+            "artist_id": artist_id,
+            "id": 4
+        }
+
+        self.assertEqual(a1.serialize(), a1_serialized)
+        self.assertEqual(a2.serialize(), a2_serialized)
+
     def test_album_model(self):
         albums = Album.query.all()
         a1 = Album.query.filter_by(title=self.album_1.title).first()
