@@ -4,7 +4,6 @@
 #
 # python -m unittest test_songs_model.py
 
-import os
 from unittest import TestCase
 from models import db, Song, Artist, Album
 from config import TEST_DATABASE_NAME
