@@ -24,6 +24,7 @@ function NewArtistForm(props) {
       const { artists } = await BackendApi.addNewArtist(newArtist, authHeader);
       setName("");
       setLogoUrl("");
+      setErrors([]);
       props.setArtists(artists)
     } catch (e) {
       console.log(e);

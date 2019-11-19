@@ -27,6 +27,7 @@ function NewSongForm(props) {
       setTitle("");
       setArtist("");
       setAlbum("");
+      setErrors([]);
       props.setSongs(songs)
     } catch (e) {
       console.log(e);

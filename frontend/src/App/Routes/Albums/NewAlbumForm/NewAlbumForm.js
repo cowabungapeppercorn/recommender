@@ -27,6 +27,7 @@ function NewAlbumForm(props) {
       setTitle("");
       setYear("");
       setArtist("");
+      setErrors([]);
       props.setAlbums(albums)
     } catch (e) {
       console.log(e);
