@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 jwt = JWTManager(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = F'postgresql:///{DATABASE_NAME}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql:///{DATABASE_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = SECRET_KEY
