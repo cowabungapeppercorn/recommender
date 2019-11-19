@@ -10,6 +10,7 @@ from config import TEST_DATABASE_NAME
 from app import app
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql:///{TEST_DATABASE_NAME}'
+app.config['SQLALCHEMY_ECHO'] = False
 
 db.drop_all()
 db.create_all()
