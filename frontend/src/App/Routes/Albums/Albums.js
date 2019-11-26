@@ -29,7 +29,7 @@ function Albums(props) {
   );
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <h2>All Albums</h2>
       <Row className="justify-content-center">
         <NewAlbumForm {...props} setAlbums={setAlbums} />

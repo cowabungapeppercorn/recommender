@@ -29,7 +29,7 @@ function Artists(props) {
   );
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <h2>All Artists</h2>
       <Row className="justify-content-center">
         <NewArtistForm {...props} setArtists={setArtists} />
