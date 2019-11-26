@@ -59,8 +59,8 @@ function NavBar(props) {
               <Nav.Link>{'artists'}</Nav.Link>
             </LinkContainer>
           </Nav.Item>
+          {currentUser ? currentUserNavLink : noCurrentUserNavLink}
         </Navbar.Collapse>
-        {currentUser ? currentUserNavLink : noCurrentUserNavLink}
       </Nav>
 
 
