@@ -17,7 +17,7 @@ function App() {
     try {
       const { identity } = decode(token);
       const res = await BackendApi.getUser(identity);
-      setCurrentUser(res.username);
+      setCurrentUser(res);
     } catch (e) {
       setCurrentUser(null);
     }
@@ -29,7 +29,7 @@ function App() {
       await getCurrentUser();
     }
     updateCurrentUser();
-  }, [currentUser]);
+  }, []);
 
   function handleLogout() {
     localStorage.removeItem("token");

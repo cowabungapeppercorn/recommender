@@ -11,7 +11,7 @@ function Home() {
       </div>
       {currentUser && (
         <div className='row my-3 justify-content-center'>
-          <h3>sup {currentUser}</h3>
+          <h3>sup {currentUser.username}</h3>
         </div>
       )}
     </div>
