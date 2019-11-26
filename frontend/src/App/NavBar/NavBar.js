@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../userContext';
-import './NavBar.css';
 
 function NavBar(props) {
   const { currentUser, handleLogout } = useContext(UserContext);
@@ -22,6 +21,7 @@ function NavBar(props) {
           {'profile'}
         </NavDropdown.Item>
       </LinkContainer>
+      <NavDropdown.Divider />
       <LinkContainer to="/">
         <NavDropdown.Item onClick={handleLogout}>
           {'logout'}
@@ -31,31 +31,35 @@ function NavBar(props) {
   );
 
   return (
-    <Navbar bg="dark" variant="dark" className="justify-content-between">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="justify-content-center">
       <LinkContainer to="/">
         <Navbar.Brand className="ml-3">
           {'recommender'}
         </Navbar.Brand>
       </LinkContainer>
 
-      <Nav className="mr-3">
-        <Nav.Item>
-          <LinkContainer to="/songs">
-            <Nav.Link>songs</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
-        <Nav.Item>
-          <LinkContainer to="/albums">
-            <Nav.Link>{'albums'}</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
-        <Nav.Item>
-          <LinkContainer to="/artists">
-            <Nav.Link>{'artists'}</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
-        {currentUser ? currentUserNavLink : noCurrentUserNavLink}
-      </Nav>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav>
+          <Nav.Item>
+            <LinkContainer to="/songs">
+              <Nav.Link>songs</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          <Nav.Item>
+            <LinkContainer to="/albums">
+              <Nav.Link>{'albums'}</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          <Nav.Item>
+            <LinkContainer to="/artists">
+              <Nav.Link>{'artists'}</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          {currentUser ? currentUserNavLink : noCurrentUserNavLink}
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   )
 }
