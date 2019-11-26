@@ -47,6 +47,11 @@ class BackendApi {
     let res = await axios.get(`${BASE_URL}/users/${username}`);
     return res.data;
   }
+
+  static async updateUser(username, headers) {
+    let res = await axios.patch(`${BASE_URL}/users/${username}`);
+    return res.data;
+  }
 }
 
 export default BackendApi;
