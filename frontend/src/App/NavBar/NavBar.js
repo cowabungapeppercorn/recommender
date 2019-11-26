@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../userContext';
 import './NavBar.css';
 
@@ -18,7 +18,7 @@ function NavBar(props) {
   const currentUserNavLink = (
     <Nav.Item>
       <NavDropdown title={currentUser ? currentUser.username : 'ayy'} className="navbar-dropdown">
-        <LinkContainer to="/">
+        <LinkContainer to="/profile">
           <NavDropdown.Item className="navbar-dropdown-item">
             {'profile'}
           </NavDropdown.Item>
