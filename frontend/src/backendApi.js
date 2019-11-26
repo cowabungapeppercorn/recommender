@@ -48,8 +48,8 @@ class BackendApi {
     return res.data;
   }
 
-  static async updateUser(username, headers) {
-    let res = await axios.patch(`${BASE_URL}/users/${username}`);
+  static async updateUser(username, data, headers) {
+    let res = await axios.patch(`${BASE_URL}/users/${username}`, data, headers);
     return res.data;
   }
 }
