@@ -75,14 +75,30 @@ def login():
         return jsonify(str(e)), 400
 
 
-@app.route('/users/<username>')
+@app.route('/users/<username>', methods=["GET", "PATCH"])
 def get_user(username):
-    try:
-        user = User.get_by_username(username).serialize()
-        return jsonify(user), 200
-    except Exception as e:
-        print(e)
-        return jsonify(msg="Could not get user by username."), 400
+    if request.method == "GET":
+        try:
+            user = User.get_by_username(username).serialize()
+            return jsonify(user), 200
+        except Exception as e:
+            print(e)
+            return jsonify(msg="Could not get user by username."), 400
+    else:
+        data = request.get_json()
+        try:
+            user = User.get_by_username(username)
+            user.first_name = data['first_name']
+            user.last_name = data['last_name']
+            user.email = data['email']
+
+            db.session.add(user)
+            db.session.commit()
+
+            return jsonify(user.serialize()), 200
+        except Exception as e:
+            print(e)
+            return jsonify(msg="Could not make changes to the user."), 400
 
 ##############################################################################
 # SONG ROUTES
