@@ -1,42 +1,60 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../userContext';
+import './NavBar.css';
 
 function NavBar(props) {
   const { currentUser, handleLogout } = useContext(UserContext);
-  
-  const loginNavLink = (
-    <NavLink to="/auth" className="mx-3">
-      {'login'}
-    </NavLink>
+
+  const noCurrentUserNavLink = (
+    <Nav.Item>
+      <LinkContainer to="/auth">
+        <Nav.Link>{'login'}</Nav.Link>
+      </LinkContainer>
+    </Nav.Item>
   );
 
-  const logoutNavLink = (
-    <NavLink to="/" className="mx-3" onClick={handleLogout}>
-      {'logout'}
-    </NavLink>
+  const currentUserNavLink = (
+    <NavDropdown title={currentUser ? currentUser.username : 'ayy'}>
+      <LinkContainer to="/">
+        <NavDropdown.Item>
+          {'profile'}
+        </NavDropdown.Item>
+      </LinkContainer>
+      <LinkContainer to="/">
+        <NavDropdown.Item onClick={handleLogout}>
+          {'logout'}
+        </NavDropdown.Item>
+      </LinkContainer>
+    </NavDropdown>
   );
 
   return (
     <Navbar bg="dark" variant="dark" className="justify-content-between">
-      <Navbar.Brand className="ml-3">
-        <NavLink to="/">
+      <LinkContainer to="/">
+        <Navbar.Brand className="ml-3">
           {'recommender'}
-        </NavLink>
-      </Navbar.Brand>
+        </Navbar.Brand>
+      </LinkContainer>
 
       <Nav className="mr-3">
-        <NavLink to="/songs" className="mx-3">
-          {'songs'}
-        </NavLink>
-        <NavLink to="/albums" className="mx-3">
-          {'albums'}
-        </NavLink>
-        <NavLink to="/artists" className="mx-3">
-          {'artists'}
-        </NavLink>
-        {currentUser ? logoutNavLink : loginNavLink}
+        <Nav.Item>
+          <LinkContainer to="/songs">
+            <Nav.Link>songs</Nav.Link>
+          </LinkContainer>
+        </Nav.Item>
+        <Nav.Item>
+          <LinkContainer to="/albums">
+            <Nav.Link>{'albums'}</Nav.Link>
+          </LinkContainer>
+        </Nav.Item>
+        <Nav.Item>
+          <LinkContainer to="/artists">
+            <Nav.Link>{'artists'}</Nav.Link>
+          </LinkContainer>
+        </Nav.Item>
+        {currentUser ? currentUserNavLink : noCurrentUserNavLink}
       </Nav>
     </Navbar>
   )
