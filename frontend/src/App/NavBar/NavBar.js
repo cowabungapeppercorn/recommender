@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Row, Col } from 'react-bootstrap';
 import { UserContext } from '../../userContext';
+import './NavBar.css';
 
 function NavBar(props) {
   const { currentUser, handleLogout } = useContext(UserContext);
@@ -15,33 +16,34 @@ function NavBar(props) {
   );
 
   const currentUserNavLink = (
-    <NavDropdown title={currentUser ? currentUser.username : 'ayy'}>
-      <LinkContainer to="/">
-        <NavDropdown.Item>
-          {'profile'}
-        </NavDropdown.Item>
-      </LinkContainer>
-      <NavDropdown.Divider />
-      <LinkContainer to="/">
-        <NavDropdown.Item onClick={handleLogout}>
-          {'logout'}
-        </NavDropdown.Item>
-      </LinkContainer>
-    </NavDropdown>
+    <Nav.Item>
+      <NavDropdown title={currentUser ? currentUser.username : 'ayy'} className="navbar-dropdown">
+        <LinkContainer to="/">
+          <NavDropdown.Item className="navbar-dropdown-item">
+            {'profile'}
+          </NavDropdown.Item>
+        </LinkContainer>
+        <NavDropdown.Divider />
+        <LinkContainer to="/">
+          <NavDropdown.Item className="navbar-dropdown-item" onClick={handleLogout}>
+            {'logout'}
+          </NavDropdown.Item>
+        </LinkContainer>
+      </NavDropdown>
+    </Nav.Item>
   );
 
   return (
-    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="justify-content-center">
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="justify-content-between">
       <LinkContainer to="/">
         <Navbar.Brand className="ml-3">
           {'recommender'}
         </Navbar.Brand>
       </LinkContainer>
 
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav>
+      <Nav className="justify-content-between">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav.Item>
             <LinkContainer to="/songs">
               <Nav.Link>songs</Nav.Link>
@@ -57,9 +59,11 @@ function NavBar(props) {
               <Nav.Link>{'artists'}</Nav.Link>
             </LinkContainer>
           </Nav.Item>
-          {currentUser ? currentUserNavLink : noCurrentUserNavLink}
-        </Nav>
-      </Navbar.Collapse>
+        </Navbar.Collapse>
+        {currentUser ? currentUserNavLink : noCurrentUserNavLink}
+      </Nav>
+
+
     </Navbar>
   )
 }
