@@ -36,12 +36,12 @@ function NavBar(props) {
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="justify-content-between">
       <LinkContainer to="/">
-        <Navbar.Brand className="ml-3">
+        <Navbar.Brand className="ml-5">
           {'recommender'}
         </Navbar.Brand>
       </LinkContainer>
 
-      <Nav className="justify-content-between">
+      <Nav className="justify-content-between mr-5">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav.Item>
