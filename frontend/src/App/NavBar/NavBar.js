@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../userContext';
-import './NavBar.css';
 
 function NavBar(props) {
   const { currentUser, handleLogout } = useContext(UserContext);
