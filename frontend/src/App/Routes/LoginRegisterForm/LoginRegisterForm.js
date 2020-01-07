@@ -87,6 +87,7 @@ function RegisterForm(props) {
   return (
     <div>
       <h1>{formType === "login" ? "Login" : "Register"}</h1>
+      {console.log("USERNAME --->", username, "PASSWORD --->", password)}
       {errors.length > 0 && errorAlerts}
       {form}
       {changeFormBtn}
