@@ -56,12 +56,18 @@ class UserModelTestCase(TestCase):
 
         u1_serialized = {
             "username": "slam",
-            "id": 1
+            "id": 1,
+            "first_name": None,
+            "last_name": None,
+            "email": None
         }
 
         u2_serialized = {
             "username": "cowabunga",
-            "id": 2
+            "id": 2,
+            "first_name": None,
+            "last_name": None,
+            "email": None
         }
 
         self.assertEqual(u1.serialize(), u1_serialized)
