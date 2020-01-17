@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, Song, Album, Artist, User
+from models import db, connect_db, Song, Album, Artist, User, Recommendation
 from config import DATABASE_NAME, SECRET_KEY, JWT_SECRET_KEY
 
 app = Flask(__name__)
@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+app.config['JWT_HEADER_TYPE'] = ''
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
@@ -102,6 +103,38 @@ def get_user(username):
             return jsonify(msg="Could not make changes to the user."), 400
 
 ##############################################################################
+# RECOMMENDATION ROUTES
+
+
+@app.route('/recommend', methods=["GET", "POST"])
+@jwt_required
+def recommend_song():
+    data = request.get_json()
+
+    if not data['to_user']:
+        return jsonify({"msg": "Missing to_user parameter"}), 400
+    if not data['from_user']:
+        return jsonify({"msg": "Missing from_user parameter"}), 400
+    if not data['song_id']:
+        return jsonify({"msg": "Missing song_id parameter"}), 400
+
+    to_user = data['to_user']
+    from_user = data['from_user']
+    song_id = data['song_id']
+    message = data['message']
+
+    try:
+        new_recommendation = Recommendation(to_user=to_user,
+                                            from_user=from_user,
+                                            song_id=song_id,
+                                            message=message)
+        db.session.add(new_recommendation)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({"msg": "Something went wrong making the rec."}), 400
+
+##############################################################################
 # SONG ROUTES
 
 
@@ -140,7 +173,7 @@ def show_songs():
             db.session.add(new_song)
             db.session.commit()
 
-            return redirect('/songs')
+            return jsonify({"msg": "Song added successfully."}), 201
         except Exception as e:
             print(e)
             return jsonify(msg="Could not add song to database."), 400
