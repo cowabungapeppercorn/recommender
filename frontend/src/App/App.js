@@ -15,6 +15,7 @@ function App() {
   async function getCurrentUser() {
     const token = localStorage.getItem("token");
     try {
+      console.log("DECODED TOKEN ---->", decode(token));
       const { identity } = decode(token);
       const res = await BackendApi.getUser(identity);
       setCurrentUser(res);

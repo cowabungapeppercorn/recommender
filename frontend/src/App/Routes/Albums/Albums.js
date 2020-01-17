@@ -8,7 +8,7 @@ function Albums(props) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const authHeader = { 'headers': { 'Authorization': 'Bearer ' + token } };
+    const authHeader = { 'headers': { 'Authorization': token } };
     async function _getAlbums() {
       try {
         let res = await BackendApi.getAllAlbums(authHeader);
