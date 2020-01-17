@@ -130,6 +130,7 @@ def recommend_song():
                                             message=message)
         db.session.add(new_recommendation)
         db.session.commit()
+        return jsonify({"msg": "Recommendation sent!"}), 201
     except Exception as e:
         print(e)
         return jsonify({"msg": "Something went wrong making the rec."}), 400
