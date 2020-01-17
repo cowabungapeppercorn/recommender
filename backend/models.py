@@ -118,6 +118,20 @@ class User(db.Model):
             return False
 
 
+class Recommendation(db.Model):
+    __tablename__ = 'recommendations'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    to_user = db.Column(db.Integer, db.ForeignKey('users.id',
+                        ondelete='CASCADE'), nullable=False)
+    from_user = db.Column(db.Integer, db.ForeignKey('users.id',
+                          ondelete='CASCADE'), nullable=False)
+    song_id = db.Column(db.Integer, db.ForeignKey('songs.id',
+                        ondelete='CASCADE'), nullable=False)
+    message = db.Column(db.String(500), nullable=True)
+    read = db.Column(db.Boolean(), default=False)
+
+
 def connect_db(app):
     """Connect to database"""
     db.app = app
