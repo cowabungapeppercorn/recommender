@@ -94,6 +94,10 @@ class User(db.Model):
             "email": self.email
         }
 
+    def get_received_recommendations(self):
+        received_recommendations = Recommendation.query.filter_by(to_user=self.id)
+        return received_recommendations
+
     @classmethod
     def get_by_username(cls, username):
         user = User.query.filter_by(username=username).first()
